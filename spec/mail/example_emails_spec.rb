@@ -298,6 +298,31 @@ describe "Test emails" do
       end
     end
 
+    describe "blank line in To field (tmail)" do
+      before(:each) do
+        @message = Mail::Message.new(File.read(fixture('emails', 'error_emails', 'new_line_in_to_header.eml')))
+      end
+
+      it "should parse the email and encode without crashing" do
+        doing { @message.encoded }.should_not raise_error
+      end
+
+      it "should return all of the addresses in the To field" do
+        @message.to.should == %w(
+          leads@sg.dc.com
+          sag@leads.gs.ry.com
+          sn@example-hotmail.com
+          e-s-a-g-8718@app.ar.com
+          jp@t-exmaple.com
+          cc@c-l-example.com
+         )
+      end
+
+      it "should return the message_id" do
+        @message.message_id.should == '4cb5c7d0a3cce_120e..fdbed2b861958562@s.t-example.com.tmail'
+      end
+    end
+
   end
   
   describe "empty address lists" do

@@ -1803,12 +1803,19 @@ module Mail
     # Additionally, I allow for the case where someone might have put whitespace
     # on the "gap line"
     def parse_message
-      header_part, body_part = raw_source.split(/#{CRLF}#{WSP}*#{CRLF}/m, 2)
-#      index = raw_source.index(/#{CRLF}#{WSP}*#{CRLF}/m, 2)
-#      self.header = (index) ? header_part[0,index] : nil
-#      lazy_body ( [raw_source, index+1])
+      header_part, body_part = split_message(raw_source)
+      # Tmail generated some To fields with invalid blank lines. This code tries
+      # to check for that condition and stitch the header back together
+      if header_part && header_part[-1, 1] == ','
+        subheader_part, body_part = split_message(body_part)
+        header_part << subheader_part
+      end
       self.header = header_part
       self.body   = body_part
+    end
+
+    def split_message(source)
+      source.split(/#{CRLF}#{WSP}*#{CRLF}/m, 2)
     end
 
     def raw_source=(value)
