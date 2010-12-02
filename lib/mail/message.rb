@@ -1807,8 +1807,11 @@ module Mail
       # Tmail generated some To fields with invalid blank lines. This code tries
       # to check for that condition and stitch the header back together
       if header_part && header_part[-1, 1] == ','
-        subheader_part, body_part = split_message(body_part)
-        header_part << subheader_part
+        subheader_part, subbody_part = split_message(body_part)
+        if subheader_part && subbody_part
+          header_part << subheader_part
+          body_part = subbody_part
+        end
       end
       self.header = header_part
       self.body   = body_part
