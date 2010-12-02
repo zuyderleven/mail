@@ -264,6 +264,10 @@ module Mail
       }
     end
   
+    # This rule matches address lists that do not comply with RFC2822, e.g.
+    # with blank addresses in the list. Mikel thinks it would be impractical
+    # to extract to a separate uncompliant grammar, and Donald was too lazy
+    # to try.
     rule address_list
       first_addr:address? other_addr:(FWS* "," FWS* addr_value:address?)*
     end
