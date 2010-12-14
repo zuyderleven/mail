@@ -1,35 +1,35 @@
-Delivered-To: e-r-w-a-4462@app.ar.com
-Received: by 10.1.1.1 with SMTP id w10cs10896muo;
-        Tue, 12 Oct 2010 13:20:24 -0700 (PDT)
-Received: by 10.2.1.5 with SMTP id bk15mr6105827qab.89.1286914824124;
-        Tue, 12 Oct 2010 13:20:24 -0700 (PDT)
-Return-Path: <j@yahoo-example.com>
-Received: from mail.ga-example.com (mail.ga-example.com [64.1.2.3])
-        by mx.google.com with ESMTP id 13si112341247qcd.23.2010.10.12.13.20.23;
-        Tue, 12 Oct 2010 13:20:24 -0700 (PDT)
-Received-SPF: neutral (google.com: 64.1.2.3 is neither permitted nor denied by best guess record for domain of j@yahoo-example.com) client-ip=64.1.2.3;
-Authentication-Results: mx.google.com; spf=neutral (google.com: 64.1.2.3 is neither permitted nor denied by best guess record for domain of j@yahoo-example.com) smtp.mail=j@yahoo-example.com
-X-MDAV-Processed: mail.ga-example.com, Tue, 12 Oct 2010 16:21:07 -0400
-X-Spam-Processed: mail.ga-example.com, Tue, 12 Oct 2010 16:21:06 -0400
+Delivered-To: eleads-rwa-4462@a.a.com
+Received: by 10.216.183.21 with SMTP id p21cs82750wem;
+        Sat, 18 Sep 2010 14:49:58 -0700 (PDT)
+Received: by 10.229.2.24 with SMTP id 24mr4418285qch.276.1284846597391;
+        Sat, 18 Sep 2010 14:49:57 -0700 (PDT)
+Return-Path: <c.c@y.com>
+Received: from mail.g.com (mail.g.com [64.132.181.40])
+        by mx.google.com with ESMTP id g2qcq.80.2010.09.18.14.49.56;
+        Sat, 18 Sep 2010 14:49:57 -0700 (PDT)
+Received-SPF: neutral (google.com: 64.132.181.40 is neither permitted nor denied by best guess record for domain of c.c@y.com) client-ip=64.0.0.40;
+Authentication-Results: mx.google.com; spf=neutral (google.com: 64.132.181.40 is neither permitted nor denied by best guess record for domain of c.c@y.com) smtp.mail=c.c@y.com
+X-MDAV-Processed: mail.g.com, Sat, 18 Sep 2010 17:50:10 -0400
+X-Spam-Processed: mail.g.com, Sat, 18 Sep 2010 17:50:10 -0400
 X-Spam-Checker-Version: SpamAssassin 3.2.5 (2008-06-10) on
-	MAIL02.VD-example.com
+	MAIL02.Vehicledata.com
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DATE_IN_PAST_03_06,
 	FORGED_YAHOO_RCVD,INVALID_DATE,NO_RELAYS,SUBJECT_NEEDS_ENCODING
 	shortcircuit=no autolearn=no version=3.2.5
-Received: from GAWWW03 by ga-example.com (MDaemon PRO v11.0.3)
-	with ESMTP id md50004804310.msg
-	for <e-r-w-a-4462@app.ar.com>; Tue, 12 Oct 2010 16:21:05 -0400
-X-MDRemoteIP: 192.168.254.73
-X-Return-Path: j@yahoo-example.com
-X-Envelope-From: j@yahoo-example.com
-X-MDaemon-Deliver-To: e-r-w-a-4462@app.ar.com
-Date: Tue, 12 Oct 2010 16:21:05 H0500
-Subject: GA.com√¥ has a lead for you
-To: c@ra-example.com,e-r-w-a-4462@app.ar.com,leads@ga-example.com
+Received: from GAWWW01 by g.com (MDaemon PRO v11.0.3)
+	with ESMTP id md50004527475.msg
+	for <eleads-rwa-4462@a.a.com>; Sat, 18 Sep 2010 17:50:09 -0400
+X-MDRemoteIP: 192.168.254.71
+X-Return-Path: c.c@y.com
+X-Envelope-From: c.c@y.com
+X-MDaemon-Deliver-To: eleads-rwa-4462@a.a.com
+Date: Sat, 18 Sep 2010 17:50:08 H0500
+Subject: GA.comô has a lead for you
+To: chadd@rwa.com,eleads-rwa-4462@a.a.com,gafaxleads@g.com
 MIME-Version: 1.0
 Content-type: text/plain; charset=iso-8859-1
-From: j@yahoo-example.com
-Message-ID: <MDAEMON-F201010121621.AA2105420md50000198258@ga-example.com>
+From: c.c@y.com
+Message-ID: <MDAEMON-F201009181750.AA5007772md50000078325@g.com>
 
-Body Text - not important
+Content Removed
