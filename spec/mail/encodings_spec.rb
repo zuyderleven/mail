@@ -160,9 +160,14 @@ describe Mail::Encodings do
       Mail::Encodings.value_decode(string).should == result
     end
 
-    it "should not collapse encoded pieces with broken encodings" do
+    it "should collapse adjacent words with unknown encodings" do
       string = "=?utf-8?iB?0L3QvtCy0YvQuSDRgdC+0YLRgNGD0LTQvdC40Log4oCUINC00L7RgNC+0YQ=?=\n =?utf-8?B?0LXQtdCy?="
       Mail::Encodings.value_decode(string).should == "=?utf-8?iB?0L3QvtCy0YvQuSDRgdC+0YLRgNGD0LTQvdC40Log4oCUINC00L7RgNC+0YQ=?=еев"
+    end
+
+    it "should collapse adjacent words with completely different encodings/charset" do
+      string = "=?UTF-8?Q?hell=C3=B8?= =?Windows-1252?B?d/hybGQ=?="
+      Mail::Encodings.value_decode(string).should == "helløwørld"
     end
 
     it "should parse adjacent words with no space" do

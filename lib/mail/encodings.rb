@@ -114,34 +114,43 @@ module Mail
     # String has to be of the format =?<encoding>?[QB]?<string>?=
     def Encodings.value_decode(str)
       # Optimization: If there's no encoded-words in the string, just return it
-      return str unless str =~ /\=\?[^?]+\?[QB]\?[^?]+?\?\=/xmi
+      return str unless str =~ ENCODED_WORD
 
-      lines = collapse_adjacent_encodings(str)
+      result = ""
+      was_encoded_word = false
 
-      # Split on white-space boundaries with capture, so we capture the white-space as well
-      lines.map do |line|
-        line.split(/([ \t])/).map do |text|
-          if text.index('=?').nil?
-            text
+      str.scan(/
+        (\s*)(#{ENCODED_WORD})
+        |
+        (.+?)(?=\s*#{ENCODED_WORD}|$)
+      /xmi).each do |space, token, method, string|
+
+        if string
+          result << string
+          was_encoded_word = false
+        else
+          # When displaying a particular header field that contains multiple
+          # 'encoded-word's, any 'linear-white-space' that separates a pair of
+          # adjacent 'encoded-word's is ignored. -- RFC 2047$6.2
+          result << space unless was_encoded_word
+          was_encoded_word = true
+
+          if method == 'b' || method == 'B'
+            result << b_value_decode(token)
+          elsif method == 'q' || method == 'Q'
+            result << q_value_decode(token)
           else
-            # Search for occurences of quoted strings or plain strings
-            text.scan(/(                                 # Group around entire regex to include it in matches
-                        \=\?[^?]+\?([QB])\?[^?]+?\?\=    # Quoted String with subgroup for encoding method
-                        |                                # or
-                        .+?(?=\=\?|$)                    # Plain String
-                      )/xmi).map do |matches|
-              string, method = *matches
-              if    method == 'b' || method == 'B'
-                b_value_decode(string)
-              elsif method == 'q' || method == 'Q'
-                q_value_decode(string)
-              else
-                string
-              end
-            end
+            # In the event other encodings are defined in the future, and the mail
+            # reader does not support the encoding used, it may either (a) display
+            # the 'encoded-word' as ordinary text, or (b) substitute an appropriate
+            # message indicating that the text could not be decoded. -- RFC2047$6.2
+            result << token
           end
         end
-      end.flatten.join("")
+
+      end
+
+      result
     end
 
     # Takes an encoded string of the format =?<encoding>?[QB]?<string>?=
@@ -255,50 +264,8 @@ module Mail
       RubyVer.q_value_decode(str)
     end
 
-    def Encodings.split_encoding_from_string( str )
-      match = str.match(/\=\?([^?]+)?\?[QB]\?(.+)?\?\=/mi)
-      if match
-        match[1]
-      else
-        nil
-      end
-    end
-
     def Encodings.find_encoding(str)
       RUBY_VERSION >= '1.9' ? str.encoding : $KCODE
-    end
-
-    # Gets the encoding type (Q or B) from the string.
-    def Encodings.split_value_encoding_from_string(str)
-      match = str.match(/\=\?[^?]+?\?([QB])\?(.+)?\?\=/mi)
-      if match
-        match[1]
-      else
-        nil
-      end
-    end
-
-    # When the encoded string consists of multiple lines, lines with the same
-    # encoding (Q or B) can be joined together.
-    #
-    # String has to be of the format =?<encoding>?[QB]?<string>?=
-    def Encodings.collapse_adjacent_encodings(str)
-      lines = str.split(/(\?=)\s*(=\?)/).each_slice(2).map(&:join)
-      results = []
-      previous_encoding = nil
-
-      lines.each do |line|
-        encoding = split_value_encoding_from_string(line)
-
-        if encoding && encoding == previous_encoding
-          line = results.pop + line
-        end
-
-        previous_encoding = encoding
-        results << line
-      end
-
-      results
     end
   end
 end
