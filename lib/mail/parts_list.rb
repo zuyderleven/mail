@@ -1,9 +1,12 @@
+require 'delegate'
+
 module Mail
-  class PartsList
+  class PartsList < DelegateClass(Array)
     attr_reader :parts
 
     def initialize(*args)
       @parts = Array.new(*args)
+      super @parts
     end
 
     def attachments
