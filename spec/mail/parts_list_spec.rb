@@ -34,4 +34,9 @@ describe "PartsList" do
     p << html_text_part
     expect(p.sort!(order)).to eq [plain_text_part, html_text_part, no_content_type_part]
   end
+
+  it "should have a parts reader" do
+    p = Mail::PartsList.new([1, 2])
+    expect(p.parts).to eq([1, 2])
+  end
 end
