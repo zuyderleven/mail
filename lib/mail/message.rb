@@ -1993,8 +1993,7 @@ module Mail
     # on the "gap line"
     def parse_message
       stream = StringIO.new(raw_source)
-      headers = parse_headers(stream)
-      self.header = headers
+      self.header = parse_headers(stream)
       self.body = stream.read
     end
 
