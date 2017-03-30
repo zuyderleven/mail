@@ -20,7 +20,7 @@ module Mail
 
     def inline_content_id
       # TODO: Deprecated in 2.2.2 - Remove in 2.3
-      $stderr.puts("Part#inline_content_id is deprecated, please call Part#cid instead")
+      STDERR.puts("Part#inline_content_id is deprecated, please call Part#cid instead")
       cid
     end
 
@@ -34,7 +34,7 @@ module Mail
     end
 
     def inline?
-      header[:content_disposition].disposition_type == 'inline' if header[:content_disposition].respond_to?(:disposition_type)
+      header[:content_disposition].disposition_type == 'inline' if header[:content_disposition]
     end
 
     def add_required_fields
@@ -94,22 +94,21 @@ module Mail
     def get_return_values(key)
       if delivery_status_data[key].is_a?(Array)
         delivery_status_data[key].map { |a| a.value }
-      elsif !delivery_status_data[key].nil?
-        delivery_status_data[key].value
       else
-        nil
+        delivery_status_data[key].value
       end
     end
 
-    # In a multipart mail, a part may not have a content type header.
-    # The suggested behavior is to implicitly set it's type to text/plain.
+    # A part may not have a header.... so, just init a body if no header
     def parse_message
-      super
-      self.header['Content-Type'] = 'text/plain' if self.header['Content-Type'].nil?
-    end
-
-    def headers_required?
-      false
+      header_part, body_part = raw_source.split(/#{CRLF}#{WSP}*#{CRLF}/m, 2)
+      if header_part =~ HEADER_LINE
+        self.header = header_part
+        self.body   = body_part
+      else
+        self.header = "Content-Type: text/plain\r\n"
+        self.body   = raw_source
+      end
     end
 
     def parse_delivery_status_report
