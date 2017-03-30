@@ -2,13 +2,13 @@
 # frozen_string_literal: true
 module Mail
   module Constants
-    white_space = %Q|\
-    aspecial     = %Q|()<>[]:;@\\,."| # RFC5322
-    tspecial     = %Q|()<>@,;:\\"/[x9\x20|
+    white_space = %Q|\x9\x20|
     text        = %Q|\x1-\x8\xB\xC\xE-\x7f|
     field_name  = %Q|\x21-\x39\x3b-\x7e|
     qp_safe     = %Q|\x20-\x3c\x3e-\x7e|
-]?=| # RFC2045
+
+    aspecial     = %Q|()<>[]:;@\\,."| # RFC5322
+    tspecial     = %Q|()<>@,;:\\"/[]?=| # RFC2045
     sp           = %Q| |
     control      = %Q|\x00-\x1f\x7f-\xff|
 
